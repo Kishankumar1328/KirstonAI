@@ -1,0 +1,32 @@
+{
+  "project_id": "b5ac9feb",
+  "title": "Classic Snake Game & Leaderboard",
+  "description": "Playable Snake game with real-time scoring and high-score leaderboard.",
+  "app_type": "game",
+  "app_type_label": "Interactive Game",
+  "stack": {
+    "frontend": "React 18 + TypeScript + Vite",
+    "backend": "Python 3.11 + FastAPI",
+    "database": "PostgreSQL 15"
+  },
+  "features": [
+    "Playable snake game on HTML canvas grid",
+    "Real-time score tracking",
+    "High-score leaderboard",
+    "Pause/resume controls",
+    "Arrow keys and WASD support"
+  ],
+  "acceptance_criteria": [
+    "Player can move the snake with arrow keys",
+    "Snake grows on eating food",
+    "Game ends on wall/self collision",
+    "Score is submitted to leaderboard",
+    "Leaderboard shows top 10 scores"
+  ],
+  "prompt": "create me sanke game with good ui",
+  "is_update": false,
+  "generation_source": "template",
+  "created_at": 1788278718,
+  "elapsed_ms": 272352,
+  "file_count": 15
+}

@@ -1,0 +1,32 @@
+{
+  "project_id": "7f76bb46",
+  "title": "Comments Management Platform",
+  "description": "Full-stack comments management application with CRUD operations.",
+  "app_type": "generic_crud",
+  "app_type_label": "CRUD Application",
+  "stack": {
+    "frontend": "React 18 + TypeScript + Vite",
+    "backend": "Python 3.11 + FastAPI",
+    "database": "PostgreSQL 15"
+  },
+  "features": [
+    "Create Comments",
+    "List and search Comments",
+    "Update Comments",
+    "Delete Comments",
+    "Status tracking",
+    "Timestamps"
+  ],
+  "acceptance_criteria": [
+    "User can create a comment",
+    "User can view all comments",
+    "User can update a comment",
+    "User can delete a comment"
+  ],
+  "prompt": "Add authentication and comment moderation endpoints",
+  "is_update": true,
+  "generation_source": "template",
+  "created_at": 1788278763,
+  "elapsed_ms": 362123,
+  "file_count": 16
+}

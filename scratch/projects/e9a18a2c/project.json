@@ -1,0 +1,31 @@
+{
+  "project_id": "e9a18a2c",
+  "title": "Task Management Platform",
+  "description": "Project and task tracking with status, priority, and assignment management.",
+  "app_type": "task_manager",
+  "app_type_label": "Task Manager",
+  "stack": {
+    "frontend": "React 18 + TypeScript + Vite",
+    "backend": "Python 3.11 + FastAPI",
+    "database": "PostgreSQL 15"
+  },
+  "features": [
+    "Create and manage tasks",
+    "Set priority (low/medium/high)",
+    "Task status workflow (todo \u2192 in_progress \u2192 done)",
+    "Filter by status and priority",
+    "Task assignment and due dates"
+  ],
+  "acceptance_criteria": [
+    "User can create a task with title, priority, and due date",
+    "Task status can be updated",
+    "Tasks can be filtered by status",
+    "Completed tasks show separately"
+  ],
+  "prompt": "Build a complete real-time Task Management system with authentication and FastAPI backend.",
+  "is_update": false,
+  "generation_source": "template",
+  "created_at": 1788277833,
+  "elapsed_ms": 273615,
+  "file_count": 15
+}

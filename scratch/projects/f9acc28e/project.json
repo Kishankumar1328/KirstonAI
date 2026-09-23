@@ -1,0 +1,32 @@
+{
+  "project_id": "f9acc28e",
+  "title": "Resumes Management Platform",
+  "description": "Full-stack resumes management application with CRUD operations.",
+  "app_type": "generic_crud",
+  "app_type_label": "CRUD Application",
+  "stack": {
+    "frontend": "React 18 + TypeScript + Vite",
+    "backend": "Python 3.11 + FastAPI",
+    "database": "PostgreSQL 15"
+  },
+  "features": [
+    "Create Resumes",
+    "List and search Resumes",
+    "Update Resumes",
+    "Delete Resumes",
+    "Status tracking",
+    "Timestamps"
+  ],
+  "acceptance_criteria": [
+    "User can create a resume",
+    "User can view all resumes",
+    "User can update a resume",
+    "User can delete a resume"
+  ],
+  "prompt": "Build an ATS Resume Optimizer web application where users upload a resume (PDF/DOCX) and paste a job description.\nExtract and analyze resume content, compare it with the job description, and calculate an ATS compatibility score.\nIdentify missing keywords, skills, experience gaps, formatting issues, and provide actionable optimization suggestions.\nAdd a polished responsive UI with Resume Upload, Job Description, ATS Score, Keyword Analysis, Suggestions, and Optimized Resume sections.\nImplement the complete frontend, backend, database/API integration, validation, error handling, and tests\u2014no static/mock functionality.",
+  "is_update": false,
+  "generation_source": "template",
+  "created_at": 1788278442,
+  "elapsed_ms": 615504,
+  "file_count": 15
+}

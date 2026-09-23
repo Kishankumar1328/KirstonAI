@@ -1,0 +1,16 @@
+{
+  "project_id": "fdfb07ef",
+  "title": "Secure Authentication Platform",
+  "description": "A full-stack auth system with JWT, registration, and protected routes.",
+  "stack": {
+    "frontend": "React 18 + TypeScript + Vite",
+    "backend": "Python 3.11 + FastAPI",
+    "database": "PostgreSQL 15"
+  },
+  "prompt": "Build a complete real-time Task Management system with authentication and FastAPI backend.",
+  "is_update": false,
+  "generation_source": "template",
+  "created_at": 1788264582,
+  "elapsed_ms": 417,
+  "file_count": 15
+}

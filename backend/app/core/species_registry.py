@@ -1,0 +1,731 @@
+"""
+KirstonAI Species Taxonomy & Attribute Registry
+Defines 60+ biological species categorized under Animals, Fish, Reptiles, and Birds
+with anatomical proportions, rig configurations, habitats, palettes, and supported animations.
+"""
+
+from typing import Dict, List, Optional, Any
+import re
+
+
+SPECIES_REGISTRY: Dict[str, Dict[str, Any]] = {
+    # ── 🐾 Animals (Mammals / Land Creatures) ─────────────────────────────────
+    "bengal_tiger": {
+        "id": "bengal_tiger",
+        "name": "Bengal Tiger",
+        "scientific_name": "Panthera tigris tigris",
+        "category": "animals",
+        "habitat": "Tropical Jungle & Mangroves",
+        "movement_type": "Quadruped Apex Stalker",
+        "size_dimensions": {"length_m": 3.1, "height_m": 1.1, "weight_kg": 260},
+        "rig_type": "Quadruped Feline Rig (24 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "attack", "eat", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["bengal tiger", "tiger", "tigress", "siberian tiger", "white tiger"],
+        "palette": {"primary": [0.92, 0.52, 0.12, 1.0], "secondary": [0.1, 0.1, 0.12, 1.0], "accent": [0.98, 0.98, 0.95, 1.0]},
+        "camera_preset": {"distance": 4.2, "target_y": 0.9, "fov": 45},
+        "description": "Powerful apex predator with muscular limbs, striped fur camouflage, and flexible stalking spine."
+    },
+    "african_lion": {
+        "id": "african_lion",
+        "name": "African Lion",
+        "scientific_name": "Panthera leo",
+        "category": "animals",
+        "habitat": "African Savannah & Grasslands",
+        "movement_type": "Quadruped Pridewalker",
+        "size_dimensions": {"length_m": 2.5, "height_m": 1.2, "weight_kg": 220},
+        "rig_type": "Quadruped Feline Mane Rig (26 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "attack", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["lion", "lioness", "african lion", "king of the jungle"],
+        "palette": {"primary": [0.85, 0.62, 0.28, 1.0], "secondary": [0.35, 0.2, 0.08, 1.0], "accent": [0.95, 0.85, 0.6, 1.0]},
+        "camera_preset": {"distance": 4.5, "target_y": 1.0, "fov": 45},
+        "description": "Majestic social predator crowned with a dark dense mane, broad skull, and powerful hindquarters."
+    },
+    "african_elephant": {
+        "id": "african_elephant",
+        "name": "African Elephant",
+        "scientific_name": "Loxodonta africana",
+        "category": "animals",
+        "habitat": "Savannah Woodlands & Plains",
+        "movement_type": "Pillar Quadruped Heavyweight",
+        "size_dimensions": {"length_m": 6.5, "height_m": 3.4, "weight_kg": 6000},
+        "rig_type": "Heavy Proboscidean Rig (28 Bones)",
+        "available_animations": ["idle", "walk", "run", "attack", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["elephant", "african elephant", "mammoth", "asian elephant"],
+        "palette": {"primary": [0.46, 0.48, 0.5, 1.0], "secondary": [0.95, 0.94, 0.88, 1.0], "accent": [0.32, 0.33, 0.35, 1.0]},
+        "camera_preset": {"distance": 6.5, "target_y": 1.6, "fov": 50},
+        "description": "Colossal terrestrial mammal with massive fan ears, elongated ivory tusks, and an articulated prehensile trunk."
+    },
+    "arabian_horse": {
+        "id": "arabian_horse",
+        "name": "Arabian Horse",
+        "scientific_name": "Equus caballus",
+        "category": "animals",
+        "habitat": "Desert Steppes & Open Plains",
+        "movement_type": "Ungulate Galloper",
+        "size_dimensions": {"length_m": 2.4, "height_m": 1.5, "weight_kg": 450},
+        "rig_type": "Equine Gallop Rig (26 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["horse", "arabian horse", "stallion", "mare", "foal", "mustang", "friesian horse"],
+        "palette": {"primary": [0.45, 0.28, 0.15, 1.0], "secondary": [0.12, 0.12, 0.15, 1.0], "accent": [0.85, 0.85, 0.9, 1.0]},
+        "camera_preset": {"distance": 4.8, "target_y": 1.2, "fov": 45},
+        "description": "Graceful high-endurance equine with arched crest neck, sculpted dished face, and flowing high-carriage tail."
+    },
+    "grey_wolf": {
+        "id": "grey_wolf",
+        "name": "Grey Wolf",
+        "scientific_name": "Canis lupus",
+        "category": "animals",
+        "habitat": "Boreal Forests & Mountain Ranges",
+        "movement_type": "Canine Pack Hunter",
+        "size_dimensions": {"length_m": 1.6, "height_m": 0.85, "weight_kg": 50},
+        "rig_type": "Canine Agile Rig (22 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "attack", "eat", "turn"],
+        "default_environment": "arctic",
+        "keywords": ["wolf", "grey wolf", "timber wolf", "arctic wolf", "dingo", "wild dog"],
+        "palette": {"primary": [0.65, 0.65, 0.68, 1.0], "secondary": [0.25, 0.25, 0.28, 1.0], "accent": [0.92, 0.92, 0.95, 1.0]},
+        "camera_preset": {"distance": 3.8, "target_y": 0.75, "fov": 45},
+        "description": "Intelligent apex pack canid with dense double coat, keen upright ears, and sweeping bushy tail."
+    },
+    "domestic_dog": {
+        "id": "domestic_dog",
+        "name": "Domestic Dog",
+        "scientific_name": "Canis lupus familiaris",
+        "category": "animals",
+        "habitat": "Domestic & Urban Environments",
+        "movement_type": "Quadruped Agile Companion",
+        "size_dimensions": {"length_m": 1.1, "height_m": 0.6, "weight_kg": 28},
+        "rig_type": "Canine Domestic Rig (20 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["dog", "puppy", "golden retriever", "german shepherd", "husky", "labrador", "farm dog"],
+        "palette": {"primary": [0.82, 0.68, 0.45, 1.0], "secondary": [0.95, 0.95, 0.95, 1.0], "accent": [0.15, 0.15, 0.18, 1.0]},
+        "camera_preset": {"distance": 3.2, "target_y": 0.6, "fov": 45},
+        "description": "Loyal quadruped companion with responsive ears, expressive snout, and energetic tail wagging."
+    },
+    "domestic_cat": {
+        "id": "domestic_cat",
+        "name": "Domestic Cat",
+        "scientific_name": "Felis catus",
+        "category": "animals",
+        "habitat": "Domestic & Forest Terrains",
+        "movement_type": "Quadruped Agile Leaper",
+        "size_dimensions": {"length_m": 0.75, "height_m": 0.3, "weight_kg": 4.5},
+        "rig_type": "Small Feline Agile Rig (22 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["cat", "kitten", "kitty", "feline", "sand cat", "farm cat"],
+        "palette": {"primary": [0.85, 0.55, 0.25, 1.0], "secondary": [0.95, 0.95, 0.95, 1.0], "accent": [0.2, 0.6, 0.2, 1.0]},
+        "camera_preset": {"distance": 2.2, "target_y": 0.4, "fov": 45},
+        "description": "Nimble agile hunter with retractable claws, sensory whiskers, and whisper-quiet gait."
+    },
+    "red_fox": {
+        "id": "red_fox",
+        "name": "Red Fox",
+        "scientific_name": "Vulpes vulpes",
+        "category": "animals",
+        "habitat": "Temperate Forests & Scrublands",
+        "movement_type": "Canine Nimble Trotter",
+        "size_dimensions": {"length_m": 1.0, "height_m": 0.45, "weight_kg": 8},
+        "rig_type": "Canine Slender Rig (20 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["fox", "red fox", "arctic fox", "fleece fox"],
+        "palette": {"primary": [0.9, 0.35, 0.12, 1.0], "secondary": [0.95, 0.95, 0.95, 1.0], "accent": [0.12, 0.12, 0.15, 1.0]},
+        "camera_preset": {"distance": 2.8, "target_y": 0.5, "fov": 45},
+        "description": "Slender cunning canid with vivid reddish-orange fur, white chest bib, and a lush white-tipped brush tail."
+    },
+    "grizzly_bear": {
+        "id": "grizzly_bear",
+        "name": "Grizzly Bear",
+        "scientific_name": "Ursus arctos horribilis",
+        "category": "animals",
+        "habitat": "Alpine Mountains & River Valleys",
+        "movement_type": "Plantigrade Heavyweight",
+        "size_dimensions": {"length_m": 2.4, "height_m": 1.3, "weight_kg": 380},
+        "rig_type": "Ursine Heavy Rig (24 Bones)",
+        "available_animations": ["idle", "walk", "run", "attack", "eat", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["bear", "grizzly bear", "brown bear", "black bear", "polar bear"],
+        "palette": {"primary": [0.42, 0.28, 0.18, 1.0], "secondary": [0.3, 0.18, 0.1, 1.0], "accent": [0.15, 0.15, 0.15, 1.0]},
+        "camera_preset": {"distance": 4.6, "target_y": 1.1, "fov": 45},
+        "description": "Massive apex bruin with shoulder muscle hump, thick dense fleece, and dish-shaped cranial profile."
+    },
+    "giant_panda": {
+        "id": "giant_panda",
+        "name": "Giant Panda",
+        "scientific_name": "Ailuropoda melanoleuca",
+        "category": "animals",
+        "habitat": "Bamboo Cloud Forests",
+        "movement_type": "Plantigrade Bamboo Forager",
+        "size_dimensions": {"length_m": 1.8, "height_m": 0.9, "weight_kg": 115},
+        "rig_type": "Ursine Panda Rig (22 Bones)",
+        "available_animations": ["idle", "walk", "run", "eat", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["panda", "giant panda", "red panda"],
+        "palette": {"primary": [0.95, 0.95, 0.95, 1.0], "secondary": [0.12, 0.12, 0.15, 1.0], "accent": [0.12, 0.12, 0.15, 1.0]},
+        "camera_preset": {"distance": 3.8, "target_y": 0.8, "fov": 45},
+        "description": "Iconic black-and-white bear with round eye patches, muscular jaw for crushing bamboo, and teddy-bear ears."
+    },
+    "mountain_gorilla": {
+        "id": "mountain_gorilla",
+        "name": "Mountain Gorilla",
+        "scientific_name": "Gorilla beringei beringei",
+        "category": "animals",
+        "habitat": "Volcanic Cloud Forests",
+        "movement_type": "Knuckle-Walking Primate",
+        "size_dimensions": {"length_m": 1.7, "height_m": 1.5, "weight_kg": 180},
+        "rig_type": "Great Ape Primate Rig (26 Bones)",
+        "available_animations": ["idle", "walk", "run", "attack", "eat", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["gorilla", "silverback", "chimpanzee", "chimp", "ape", "monkey", "baboon", "lemur"],
+        "palette": {"primary": [0.18, 0.18, 0.22, 1.0], "secondary": [0.65, 0.65, 0.7, 1.0], "accent": [0.1, 0.1, 0.12, 1.0]},
+        "camera_preset": {"distance": 4.0, "target_y": 1.0, "fov": 45},
+        "description": "Powerfully built great ape with broad chest, sagittal crest skull, and silverback saddle coat."
+    },
+    "red_kangaroo": {
+        "id": "red_kangaroo",
+        "name": "Red Kangaroo",
+        "scientific_name": "Osphranter rufus",
+        "category": "animals",
+        "habitat": "Arid Australian Outback",
+        "movement_type": "Bipedal Saltatorial Hopper",
+        "size_dimensions": {"length_m": 2.0, "height_m": 1.6, "weight_kg": 85},
+        "rig_type": "Macropod Jumping Rig (22 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["kangaroo", "red kangaroo", "wallaby"],
+        "palette": {"primary": [0.75, 0.42, 0.22, 1.0], "secondary": [0.9, 0.85, 0.8, 1.0], "accent": [0.2, 0.2, 0.2, 1.0]},
+        "camera_preset": {"distance": 4.0, "target_y": 1.1, "fov": 45},
+        "description": "Iconic marsupial with huge elastic hind legs, counterbalance tail, and upright standing posture."
+    },
+    "plains_zebra": {
+        "id": "plains_zebra",
+        "name": "Plains Zebra",
+        "scientific_name": "Equus quagga",
+        "category": "animals",
+        "habitat": "African Savannahs & Shrublands",
+        "movement_type": "Equine Herd Trotter",
+        "size_dimensions": {"length_m": 2.3, "height_m": 1.4, "weight_kg": 320},
+        "rig_type": "Equine Striped Rig (24 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["zebra", "plains zebra"],
+        "palette": {"primary": [0.95, 0.95, 0.95, 1.0], "secondary": [0.1, 0.1, 0.12, 1.0], "accent": [0.1, 0.1, 0.12, 1.0]},
+        "camera_preset": {"distance": 4.6, "target_y": 1.1, "fov": 45},
+        "description": "Stunning wild equinoid with bold contrasting vertical and horizontal black-and-white stripes."
+    },
+    "northern_giraffe": {
+        "id": "northern_giraffe",
+        "name": "Northern Giraffe",
+        "scientific_name": "Giraffa camelopardalis",
+        "category": "animals",
+        "habitat": "Acacia Savannah & Open Woodlands",
+        "movement_type": "Towering Quadruped Stride",
+        "size_dimensions": {"length_m": 3.0, "height_m": 5.5, "weight_kg": 1200},
+        "rig_type": "Towering Giraffid Rig (28 Bones)",
+        "available_animations": ["idle", "walk", "run", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["giraffe", "northern giraffe", "okapi"],
+        "palette": {"primary": [0.88, 0.68, 0.22, 1.0], "secondary": [0.55, 0.28, 0.12, 1.0], "accent": [0.95, 0.9, 0.8, 1.0]},
+        "camera_preset": {"distance": 7.0, "target_y": 2.6, "fov": 50},
+        "description": "World's tallest terrestrial mammal featuring an elongated cervical column, reticulated coat, and horn ossicones."
+    },
+    "cheetah": {
+        "id": "cheetah",
+        "name": "Cheetah",
+        "scientific_name": "Acinonyx jubatus",
+        "category": "animals",
+        "habitat": "Open Grasslands & Savannahs",
+        "movement_type": "High-Speed Sprinting Predator",
+        "size_dimensions": {"length_m": 2.1, "height_m": 0.85, "weight_kg": 60},
+        "rig_type": "Hyper-Sprint Feline Rig (24 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "attack", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["cheetah", "leopard", "amur leopard", "clouded leopard"],
+        "palette": {"primary": [0.88, 0.65, 0.25, 1.0], "secondary": [0.1, 0.1, 0.12, 1.0], "accent": [0.95, 0.95, 0.9, 1.0]},
+        "camera_preset": {"distance": 3.8, "target_y": 0.75, "fov": 45},
+        "description": "Aerodynamic speedster with flexible arched spine, black tear stripes, solid spots, and rudder tail."
+    },
+    "domestic_cow": {
+        "id": "domestic_cow",
+        "name": "Domestic Cow",
+        "scientific_name": "Bos taurus",
+        "category": "animals",
+        "habitat": "Pastures & Agricultural Farmlands",
+        "movement_type": "Bovine Heavy Grazer",
+        "size_dimensions": {"length_m": 2.4, "height_m": 1.5, "weight_kg": 720},
+        "rig_type": "Bovine Quadruped Rig (22 Bones)",
+        "available_animations": ["idle", "walk", "run", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["cow", "bull", "ox", "buffalo", "calf", "yak", "bison"],
+        "palette": {"primary": [0.95, 0.95, 0.95, 1.0], "secondary": [0.15, 0.15, 0.18, 1.0], "accent": [0.9, 0.65, 0.65, 1.0]},
+        "camera_preset": {"distance": 4.5, "target_y": 1.1, "fov": 45},
+        "description": "Stocky domesticated bovine with broad muzzle, spotted coat, and peaceful grazing disposition."
+    },
+    "european_rabbit": {
+        "id": "european_rabbit",
+        "name": "European Rabbit",
+        "scientific_name": "Oryctolagus cuniculus",
+        "category": "animals",
+        "habitat": "Meadows & Forest Fringes",
+        "movement_type": "Lagomorph Quick Hopper",
+        "size_dimensions": {"length_m": 0.45, "height_m": 0.25, "weight_kg": 2.0},
+        "rig_type": "Lagomorph Ear Rig (18 Bones)",
+        "available_animations": ["idle", "walk", "run", "jump", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["rabbit", "bunny", "hare", "rabbit kit"],
+        "palette": {"primary": [0.65, 0.52, 0.42, 1.0], "secondary": [0.92, 0.9, 0.88, 1.0], "accent": [0.9, 0.7, 0.7, 1.0]},
+        "camera_preset": {"distance": 1.8, "target_y": 0.35, "fov": 40},
+        "description": "Compact agile herbivore with long sensory pinnae ears, twitching cleft nose, and fluffy puff tail."
+    },
+
+    # ── 🐟 Fish & Aquatic Life ────────────────────────────────────────────────
+    "great_white_shark": {
+        "id": "great_white_shark",
+        "name": "Great White Shark",
+        "scientific_name": "Carcharodon carcharias",
+        "category": "fish",
+        "habitat": "Coastal & Pelagic Open Oceans",
+        "movement_type": "Thunniform Apex Cruiser",
+        "size_dimensions": {"length_m": 5.2, "height_m": 1.8, "weight_kg": 1900},
+        "rig_type": "Aquatic Cartilage Fin Rig (18 Bones)",
+        "available_animations": ["idle", "swim", "dive", "attack", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["great white shark", "shark", "hammerhead", "tiger shark", "mako"],
+        "palette": {"primary": [0.35, 0.42, 0.48, 1.0], "secondary": [0.92, 0.94, 0.96, 1.0], "accent": [0.15, 0.15, 0.18, 1.0]},
+        "camera_preset": {"distance": 5.5, "target_y": 0.9, "fov": 45},
+        "description": "Apex ocean predator with countershaded hydrodynamic torpedo body, serrated teeth, and towering dorsal fin."
+    },
+    "bottlenose_dolphin": {
+        "id": "bottlenose_dolphin",
+        "name": "Bottlenose Dolphin",
+        "scientific_name": "Tursiops truncatus",
+        "category": "fish",
+        "habitat": "Temperate & Tropical Oceans",
+        "movement_type": "Cetacean High-Speed Acrobat",
+        "size_dimensions": {"length_m": 3.2, "height_m": 0.9, "weight_kg": 300},
+        "rig_type": "Cetacean Flexible Spine Rig (18 Bones)",
+        "available_animations": ["idle", "swim", "dive", "jump", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["dolphin", "bottlenose dolphin", "porpoise"],
+        "palette": {"primary": [0.38, 0.52, 0.65, 1.0], "secondary": [0.88, 0.92, 0.95, 1.0], "accent": [0.2, 0.25, 0.3, 1.0]},
+        "camera_preset": {"distance": 4.5, "target_y": 0.8, "fov": 45},
+        "description": "Playful intelligent marine mammal with sleek hydrodynamic body, curved dorsal fin, and expressive beak rostrum."
+    },
+    "blue_whale": {
+        "id": "blue_whale",
+        "name": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "fish",
+        "habitat": "Deep Oceans Worldwide",
+        "movement_type": "Gigantic Pelagic Undulation",
+        "size_dimensions": {"length_m": 28.0, "height_m": 5.0, "weight_kg": 150000},
+        "rig_type": "Giant Cetacean Fluke Rig (22 Bones)",
+        "available_animations": ["idle", "swim", "dive", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["blue whale", "whale", "killer whale", "orca", "humpback"],
+        "palette": {"primary": [0.22, 0.38, 0.52, 1.0], "secondary": [0.65, 0.78, 0.88, 1.0], "accent": [0.15, 0.2, 0.25, 1.0]},
+        "camera_preset": {"distance": 12.0, "target_y": 2.0, "fov": 55},
+        "description": "The largest animal ever known, propelled by massive horizontal tail flukes with throat pleats and a dorsal ridge."
+    },
+    "common_clownfish": {
+        "id": "common_clownfish",
+        "name": "Common Clownfish",
+        "scientific_name": "Amphiprion ocellaris",
+        "category": "fish",
+        "habitat": "Tropical Coral Reef Anemones",
+        "movement_type": "Reef Darting Flutter",
+        "size_dimensions": {"length_m": 0.11, "height_m": 0.05, "weight_kg": 0.08},
+        "rig_type": "Reef Teleost Fin Rig (12 Bones)",
+        "available_animations": ["idle", "swim", "dive", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["clownfish", "nemo", "anemone fish"],
+        "palette": {"primary": [0.98, 0.42, 0.08, 1.0], "secondary": [0.98, 0.98, 0.98, 1.0], "accent": [0.1, 0.1, 0.12, 1.0]},
+        "camera_preset": {"distance": 1.6, "target_y": 0.4, "fov": 40},
+        "description": "Vibrant reef fish with three distinct white bars bordered by black lines across bright orange body."
+    },
+    "giant_pacific_octopus": {
+        "id": "giant_pacific_octopus",
+        "name": "Giant Pacific Octopus",
+        "scientific_name": "Enteroctopus dofleini",
+        "category": "fish",
+        "habitat": "Cold Pacific Kelp Forests & Caverns",
+        "movement_type": "Tentacular Jet Propulsion",
+        "size_dimensions": {"length_m": 4.5, "height_m": 1.2, "weight_kg": 50},
+        "rig_type": "Cephalopod 8-Arm Radial Rig (32 Bones)",
+        "available_animations": ["idle", "swim", "attack", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["octopus", "squid", "kraken", "cuttlefish"],
+        "palette": {"primary": [0.82, 0.25, 0.28, 1.0], "secondary": [0.95, 0.85, 0.85, 1.0], "accent": [0.45, 0.12, 0.15, 1.0]},
+        "camera_preset": {"distance": 4.0, "target_y": 0.8, "fov": 45},
+        "description": "Highly intelligent cephalopod with bulbous mantle, keen binocular eyes, and eight sucker-lined undulating arms."
+    },
+    "seahorse": {
+        "id": "seahorse",
+        "name": "Pacific Seahorse",
+        "scientific_name": "Hippocampus ingens",
+        "category": "fish",
+        "habitat": "Seagrass Meadows & Coral Reefs",
+        "movement_type": "Vertical Dorsal Flutter",
+        "size_dimensions": {"length_m": 0.25, "height_m": 0.3, "weight_kg": 0.15},
+        "rig_type": "Prehensile Tail Syngnathid Rig (14 Bones)",
+        "available_animations": ["idle", "swim", "dive", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["seahorse", "sea dragon", "leafy sea dragon"],
+        "palette": {"primary": [0.95, 0.68, 0.18, 1.0], "secondary": [0.98, 0.88, 0.45, 1.0], "accent": [0.8, 0.4, 0.1, 1.0]},
+        "camera_preset": {"distance": 1.8, "target_y": 0.5, "fov": 40},
+        "description": "Equine-profiled marine teleost with armor rings, coronet crown, tubular suction snout, and prehensile grasping tail."
+    },
+    "green_sea_turtle": {
+        "id": "green_sea_turtle",
+        "name": "Green Sea Turtle",
+        "scientific_name": "Chelonia mydas",
+        "category": "fish",
+        "habitat": "Tropical & Subtropical Ocean Waters",
+        "movement_type": "Flipper Hydrofoil Glider",
+        "size_dimensions": {"length_m": 1.5, "height_m": 0.6, "weight_kg": 160},
+        "rig_type": "Chelonian Flipper Rig (16 Bones)",
+        "available_animations": ["idle", "swim", "dive", "turn", "flutter"],
+        "default_environment": "ocean",
+        "keywords": ["sea turtle", "turtle", "loggerhead", "leatherback"],
+        "palette": {"primary": [0.28, 0.48, 0.32, 1.0], "secondary": [0.85, 0.78, 0.55, 1.0], "accent": [0.18, 0.28, 0.2, 1.0]},
+        "camera_preset": {"distance": 3.5, "target_y": 0.6, "fov": 45},
+        "description": "Ancient oceanic reptile equipped with a smooth heart-shaped carapace and powerful paddle-like front flippers."
+    },
+
+    # ── 🦎 Reptiles & Amphibians ──────────────────────────────────────────────
+    "king_cobra": {
+        "id": "king_cobra",
+        "name": "King Cobra",
+        "scientific_name": "Ophiophagus hannah",
+        "category": "reptiles",
+        "habitat": "Dense Tropical Rainforests",
+        "movement_type": "Serpentine Lateral Undulation",
+        "size_dimensions": {"length_m": 4.5, "height_m": 1.2, "weight_kg": 8.5},
+        "rig_type": "Serpentine 16-Joint Vertebrae Rig (20 Bones)",
+        "available_animations": ["idle", "slither", "crawl", "coil", "strike"],
+        "default_environment": "jungle",
+        "keywords": ["king cobra", "cobra", "snake", "viper", "black mamba"],
+        "palette": {"primary": [0.32, 0.52, 0.22, 1.0], "secondary": [0.88, 0.75, 0.18, 1.0], "accent": [0.1, 0.1, 0.12, 1.0]},
+        "camera_preset": {"distance": 3.6, "target_y": 0.7, "fov": 45},
+        "description": "World's longest venomous snake featuring expanding cervical hood ribs, chevron markings, and upright defensive stance."
+    },
+    "burmese_python": {
+        "id": "burmese_python",
+        "name": "Burmese Python",
+        "scientific_name": "Python bivittatus",
+        "category": "reptiles",
+        "habitat": "Marshes, Swamps & River Valleys",
+        "movement_type": "Rectilinear Heavy Constrictor",
+        "size_dimensions": {"length_m": 5.0, "height_m": 0.4, "weight_kg": 75},
+        "rig_type": "Serpentine Constrictor Rig (22 Bones)",
+        "available_animations": ["idle", "slither", "crawl", "coil", "strike"],
+        "default_environment": "jungle",
+        "keywords": ["python", "burmese python", "anaconda", "boa constrictor"],
+        "palette": {"primary": [0.55, 0.42, 0.25, 1.0], "secondary": [0.3, 0.2, 0.1, 1.0], "accent": [0.85, 0.78, 0.6, 1.0]},
+        "camera_preset": {"distance": 4.2, "target_y": 0.4, "fov": 45},
+        "description": "Massive non-venomous constrictor snake displaying intricate dark brown blotched patterns outlined in gold."
+    },
+    "saltwater_crocodile": {
+        "id": "saltwater_crocodile",
+        "name": "Saltwater Crocodile",
+        "scientific_name": "Crocodylus porosus",
+        "category": "reptiles",
+        "habitat": "Estuaries, Mangrove Swamps & Rivers",
+        "movement_type": "Sprawling High-Walk & Tail Propulsion",
+        "size_dimensions": {"length_m": 5.8, "height_m": 0.8, "weight_kg": 1000},
+        "rig_type": "Armored Crocodilian Rig (24 Bones)",
+        "available_animations": ["idle", "crawl", "slither", "attack", "strike", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["crocodile", "saltwater crocodile", "alligator", "caiman"],
+        "palette": {"primary": [0.32, 0.38, 0.28, 1.0], "secondary": [0.65, 0.65, 0.5, 1.0], "accent": [0.18, 0.2, 0.15, 1.0]},
+        "camera_preset": {"distance": 5.0, "target_y": 0.5, "fov": 45},
+        "description": "Armored prehistoric hypercarnivore with heavily keeled osteoderm scutes, broad crushing jaw, and laterally compressed tail."
+    },
+    "panther_chameleon": {
+        "id": "panther_chameleon",
+        "name": "Panther Chameleon",
+        "scientific_name": "Furcifer pardalis",
+        "category": "reptiles",
+        "habitat": "Tropical Canopy Foliage",
+        "movement_type": "Zygodactylous Branch Climber",
+        "size_dimensions": {"length_m": 0.45, "height_m": 0.18, "weight_kg": 0.18},
+        "rig_type": "Chamaeleonid Prehensile Rig (18 Bones)",
+        "available_animations": ["idle", "crawl", "turn", "strike"],
+        "default_environment": "jungle",
+        "keywords": ["chameleon", "panther chameleon", "gecko", "iguana", "lizard"],
+        "palette": {"primary": [0.15, 0.78, 0.45, 1.0], "secondary": [0.95, 0.35, 0.15, 1.0], "accent": [0.15, 0.45, 0.85, 1.0]},
+        "camera_preset": {"distance": 2.2, "target_y": 0.45, "fov": 40},
+        "description": "Vibrant chromatic lizard with independent cone turret eyes, fused grasping toes, and spring-coiled prehensile tail."
+    },
+    "red_eyed_tree_frog": {
+        "id": "red_eyed_tree_frog",
+        "name": "Red-Eyed Tree Frog",
+        "scientific_name": "Agalychnis callidryas",
+        "category": "reptiles",
+        "habitat": "Neotropical Rain Forest Canopies",
+        "movement_type": "Anuran Saltatorial Leaper",
+        "size_dimensions": {"length_m": 0.07, "height_m": 0.04, "weight_kg": 0.02},
+        "rig_type": "Anuran Jumping Rig (16 Bones)",
+        "available_animations": ["idle", "crawl", "jump", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["tree frog", "frog", "toad", "red-eyed tree frog"],
+        "palette": {"primary": [0.22, 0.85, 0.22, 1.0], "secondary": [0.95, 0.15, 0.1, 1.0], "accent": [0.15, 0.45, 0.95, 1.0]},
+        "camera_preset": {"distance": 1.6, "target_y": 0.3, "fov": 40},
+        "description": "Arboreal hylid frog with bright scarlet eyes, vertical slit pupils, blue-and-yellow flank stripes, and orange suction toes."
+    },
+    "galapagos_tortoise": {
+        "id": "galapagos_tortoise",
+        "name": "Galápagos Tortoise",
+        "scientific_name": "Chelonoidis niger",
+        "category": "reptiles",
+        "habitat": "Volcanic Slopes & Arid Islands",
+        "movement_type": "Slow Graviportal Quadruped",
+        "size_dimensions": {"length_m": 1.8, "height_m": 1.0, "weight_kg": 300},
+        "rig_type": "Testudines Heavy Shell Rig (16 Bones)",
+        "available_animations": ["idle", "crawl", "eat", "turn"],
+        "default_environment": "savannah",
+        "keywords": ["tortoise", "galapagos tortoise"],
+        "palette": {"primary": [0.35, 0.32, 0.28, 1.0], "secondary": [0.25, 0.22, 0.18, 1.0], "accent": [0.55, 0.5, 0.45, 1.0]},
+        "camera_preset": {"distance": 3.8, "target_y": 0.7, "fov": 45},
+        "description": "Long-lived giant chelonian with towering domed bone carapace, elephantine column limbs, and wrinkly telescopic neck."
+    },
+
+    # ── 🦅 Birds & Avians ─────────────────────────────────────────────────────
+    "bald_eagle": {
+        "id": "bald_eagle",
+        "name": "Bald Eagle",
+        "scientific_name": "Haliaeetus leucocephalus",
+        "category": "birds",
+        "habitat": "Seacoasts, Large Lakes & Rivers",
+        "movement_type": "Soaring Apex Raptor",
+        "size_dimensions": {"length_m": 1.0, "height_m": 0.85, "weight_kg": 6.3},
+        "rig_type": "Avian Soaring Raptor Rig (22 Bones)",
+        "available_animations": ["idle", "fly", "wing_flap", "glide", "takeoff", "land", "perch"],
+        "default_environment": "sky",
+        "keywords": ["bald eagle", "eagle", "harpy eagle", "hawk", "falcon", "kestrel"],
+        "palette": {"primary": [0.28, 0.18, 0.12, 1.0], "secondary": [0.98, 0.98, 0.98, 1.0], "accent": [0.95, 0.78, 0.12, 1.0]},
+        "camera_preset": {"distance": 4.0, "target_y": 1.0, "fov": 45},
+        "description": "Majestic apex bird of prey with snow-white head plumage, massive hooked yellow beak, and vast 2.3m wingspan."
+    },
+    "indian_peacock": {
+        "id": "indian_peacock",
+        "name": "Indian Peacock",
+        "scientific_name": "Pavo cristatus",
+        "category": "birds",
+        "habitat": "Deciduous Forests & Cultivated Lands",
+        "movement_type": "Galliform Strutter",
+        "size_dimensions": {"length_m": 2.2, "height_m": 1.1, "weight_kg": 5.0},
+        "rig_type": "Avian Fanned Tail Rig (26 Bones)",
+        "available_animations": ["idle", "walk", "wing_flap", "perch", "turn"],
+        "default_environment": "jungle",
+        "keywords": ["peacock", "peafowl", "peahen"],
+        "palette": {"primary": [0.08, 0.35, 0.85, 1.0], "secondary": [0.12, 0.75, 0.45, 1.0], "accent": [0.85, 0.75, 0.15, 1.0]},
+        "camera_preset": {"distance": 4.8, "target_y": 1.1, "fov": 45},
+        "description": "Magnificent gallinaceous bird famed for its iridescent cobalt neck and colossal fan-like upper tail covert train."
+    },
+    "emperor_penguin": {
+        "id": "emperor_penguin",
+        "name": "Emperor Penguin",
+        "scientific_name": "Aptenodytes forsteri",
+        "category": "birds",
+        "habitat": "Antarctic Pack Ice & Glaciers",
+        "movement_type": "Sphenisciform Waddler & Wing Diver",
+        "size_dimensions": {"length_m": 1.2, "height_m": 1.15, "weight_kg": 38},
+        "rig_type": "Flightless Tuxedo Penguin Rig (18 Bones)",
+        "available_animations": ["idle", "walk", "run", "swim", "perch", "turn"],
+        "default_environment": "arctic",
+        "keywords": ["penguin", "emperor penguin"],
+        "palette": {"primary": [0.12, 0.14, 0.18, 1.0], "secondary": [0.95, 0.95, 0.95, 1.0], "accent": [0.98, 0.75, 0.15, 1.0]},
+        "camera_preset": {"distance": 3.0, "target_y": 0.75, "fov": 45},
+        "description": "Tallest flightless seabird with streamlined tuxedo contours, golden aurals, and hydrodynamic flipper wings."
+    },
+    "toco_toucan": {
+        "id": "toco_toucan",
+        "name": "Toco Toucan",
+        "scientific_name": "Ramphastos toco",
+        "category": "birds",
+        "habitat": "Tropical Canopy Woodlands",
+        "movement_type": "Arboreal Branch Hopper",
+        "size_dimensions": {"length_m": 0.65, "height_m": 0.5, "weight_kg": 0.7},
+        "rig_type": "Ramphastid Large Bill Rig (18 Bones)",
+        "available_animations": ["idle", "fly", "wing_flap", "glide", "perch", "eat"],
+        "default_environment": "jungle",
+        "keywords": ["toucan", "toco toucan"],
+        "palette": {"primary": [0.12, 0.12, 0.15, 1.0], "secondary": [0.98, 0.58, 0.08, 1.0], "accent": [0.95, 0.95, 0.95, 1.0]},
+        "camera_preset": {"distance": 2.6, "target_y": 0.7, "fov": 45},
+        "description": "Striking rainforest bird known for its giant, lightweight honeycomb bill painted in blazing yellow-orange with black tip."
+    },
+    "scarlet_macaw": {
+        "id": "scarlet_macaw",
+        "name": "Scarlet Macaw",
+        "scientific_name": "Ara macao",
+        "category": "birds",
+        "habitat": "Humid Evergreen Rainforests",
+        "movement_type": "Zygodactylous Canopy Flier",
+        "size_dimensions": {"length_m": 0.85, "height_m": 0.45, "weight_kg": 1.0},
+        "rig_type": "Psittacine Curved Bill Rig (20 Bones)",
+        "available_animations": ["idle", "fly", "wing_flap", "glide", "takeoff", "land", "perch"],
+        "default_environment": "jungle",
+        "keywords": ["scarlet macaw", "macaw", "parrot", "blue and gold macaw"],
+        "palette": {"primary": [0.92, 0.15, 0.12, 1.0], "secondary": [0.12, 0.48, 0.88, 1.0], "accent": [0.95, 0.85, 0.1, 1.0]},
+        "camera_preset": {"distance": 3.0, "target_y": 0.8, "fov": 45},
+        "description": "Spectacular neotropical parrot with radiant scarlet plumage, cyan-blue rump, yellow wing coverts, and hooked beak."
+    },
+    "greater_flamingo": {
+        "id": "greater_flamingo",
+        "name": "Greater Flamingo",
+        "scientific_name": "Phoenicopterus roseus",
+        "category": "birds",
+        "habitat": "Saline Lagoons & Mudflats",
+        "movement_type": "Stilt Wader & Filter Feeder",
+        "size_dimensions": {"length_m": 1.4, "height_m": 1.5, "weight_kg": 3.5},
+        "rig_type": "Stilt Avian S-Neck Rig (22 Bones)",
+        "available_animations": ["idle", "walk", "fly", "wing_flap", "perch", "eat"],
+        "default_environment": "savannah",
+        "keywords": ["flamingo", "greater flamingo"],
+        "palette": {"primary": [0.98, 0.58, 0.68, 1.0], "secondary": [0.95, 0.25, 0.35, 1.0], "accent": [0.15, 0.15, 0.18, 1.0]},
+        "camera_preset": {"distance": 4.2, "target_y": 1.2, "fov": 45},
+        "description": "Tall graceful wading bird boasting slender stilt legs, sinuous S-curve neck, downward bent beak, and pink plumage."
+    },
+    "snowy_owl": {
+        "id": "snowy_owl",
+        "name": "Snowy Owl",
+        "scientific_name": "Bubo scandiacus",
+        "category": "birds",
+        "habitat": "Arctic Coastal Tundra & Dunes",
+        "movement_type": "Silent Raptorial Flier",
+        "size_dimensions": {"length_m": 0.65, "height_m": 0.65, "weight_kg": 2.2},
+        "rig_type": "Strigiform Silent Wing Rig (20 Bones)",
+        "available_animations": ["idle", "fly", "wing_flap", "glide", "takeoff", "land", "perch"],
+        "default_environment": "arctic",
+        "keywords": ["snowy owl", "owl", "barn owl", "great horned owl"],
+        "palette": {"primary": [0.98, 0.98, 0.98, 1.0], "secondary": [0.25, 0.25, 0.28, 1.0], "accent": [0.95, 0.82, 0.15, 1.0]},
+        "camera_preset": {"distance": 2.8, "target_y": 0.7, "fov": 45},
+        "description": "Arctic predator adorned in immaculate white feathering, radiant yellow eyes with dark borders, and feathered talons."
+    },
+    "ruby_throated_hummingbird": {
+        "id": "ruby_throated_hummingbird",
+        "name": "Ruby-Throated Hummingbird",
+        "scientific_name": "Archilochus colubris",
+        "category": "birds",
+        "habitat": "Gardens, Meadows & Forest Edges",
+        "movement_type": "Figure-8 Rapid Hover",
+        "size_dimensions": {"length_m": 0.09, "height_m": 0.05, "weight_kg": 0.003},
+        "rig_type": "Trochilid High-Freq Wing Rig (16 Bones)",
+        "available_animations": ["idle", "fly", "wing_flap", "glide", "perch", "eat"],
+        "default_environment": "sky",
+        "keywords": ["hummingbird", "ruby-throated hummingbird"],
+        "palette": {"primary": [0.18, 0.72, 0.35, 1.0], "secondary": [0.92, 0.15, 0.25, 1.0], "accent": [0.95, 0.95, 0.95, 1.0]},
+        "camera_preset": {"distance": 1.4, "target_y": 0.3, "fov": 38},
+        "description": "Tiny iridescent jewel of the skies possessing hyper-velocity wings beating in figure-8s and a slender nectar needle bill."
+    }
+}
+
+
+class SpeciesNLPParser:
+    """
+    Intelligent NLP intent extractor to extract species, action, environment, and style
+    from free-form user prompts (e.g. 'Create a realistic Bengal tiger roaring and running through a jungle').
+    """
+
+    ACTION_MAP = {
+        "run": "run", "running": "run", "sprint": "run", "sprinting": "run", "chase": "run",
+        "walk": "walk", "walking": "walk", "stalk": "walk", "prowl": "walk", "roam": "walk",
+        "jump": "jump", "jumping": "jump", "leap": "jump", "leaping": "jump", "hop": "jump",
+        "swim": "swim", "swimming": "swim", "cruise": "swim", "cruising": "swim",
+        "dive": "dive", "diving": "dive",
+        "fly": "fly", "flying": "fly", "soar": "fly", "soaring": "fly",
+        "glide": "glide", "gliding": "glide",
+        "wing flap": "wing_flap", "flap": "wing_flap", "flapping": "wing_flap",
+        "slither": "slither", "slithering": "slither",
+        "crawl": "crawl", "crawling": "crawl", "creep": "crawl",
+        "coil": "coil", "coiling": "coil",
+        "attack": "attack", "attacking": "attack", "strike": "strike", "striking": "strike", "roar": "attack", "roaring": "attack", "bite": "attack",
+        "eat": "eat", "eating": "eat", "feed": "eat", "graze": "eat", "grazing": "eat",
+        "perch": "perch", "perching": "perch", "stand": "idle", "standing": "idle",
+        "idle": "idle", "rest": "idle", "resting": "idle", "breathe": "idle"
+    }
+
+    ENVIRONMENT_MAP = {
+        "jungle": "jungle", "rainforest": "jungle", "forest": "jungle", "woods": "jungle", "tropical": "jungle",
+        "ocean": "ocean", "sea": "ocean", "underwater": "ocean", "coral reef": "ocean", "water": "ocean", "marine": "ocean",
+        "savannah": "savannah", "savanna": "savannah", "plains": "savannah", "grassland": "savannah", "desert": "savannah",
+        "sky": "sky", "clouds": "sky", "altitude": "sky", "air": "sky", "mountain": "sky",
+        "arctic": "arctic", "snow": "arctic", "ice": "arctic", "tundra": "arctic", "glacier": "arctic"
+    }
+
+    STYLE_MAP = {
+        "realistic": "pbr_realism", "realism": "pbr_realism", "photorealistic": "pbr_realism",
+        "game ready": "game_ready", "game": "game_ready", "low poly": "game_ready",
+        "cyber": "sci_fi_cyber", "cyberpunk": "sci_fi_cyber", "sci-fi": "sci_fi_cyber", "neon": "sci_fi_cyber",
+        "stylized": "stylized_clay", "clay": "stylized_clay", "cartoon": "stylized_clay", "cute": "stylized_clay"
+    }
+
+    @classmethod
+    def match_species(cls, text: str) -> Optional[Dict[str, Any]]:
+        text_lower = text.lower()
+        # Direct keyword match, prioritizing longer matching phrases first
+        best_match = None
+        best_len = 0
+        for sp_id, data in SPECIES_REGISTRY.items():
+            for kw in data.get("keywords", []):
+                if re.search(r'\b' + re.escape(kw) + r'\b', text_lower):
+                    if len(kw) > best_len:
+                        best_len = len(kw)
+                        best_match = data
+        return best_match
+
+    @classmethod
+    def extract_attributes(cls, prompt: str) -> Dict[str, Any]:
+        p = prompt.lower()
+        matched_species = cls.match_species(p)
+
+        # Extract Action
+        matched_action = None
+        for kw, act in cls.ACTION_MAP.items():
+            if re.search(r'\b' + re.escape(kw) + r'\b', p):
+                matched_action = act
+                break
+
+        # Extract Environment
+        matched_env = None
+        for kw, env in cls.ENVIRONMENT_MAP.items():
+            if re.search(r'\b' + re.escape(kw) + r'\b', p):
+                matched_env = env
+                break
+
+        # Extract Style
+        matched_style = "pbr_realism"
+        for kw, st in cls.STYLE_MAP.items():
+            if re.search(r'\b' + re.escape(kw) + r'\b', p):
+                matched_style = st
+                break
+
+        # Defaults from species if matched
+        species_name = matched_species["name"] if matched_species else None
+        species_category = matched_species["category"] if matched_species else None
+        species_rig = matched_species["rig_type"] if matched_species else None
+        if not matched_env and matched_species:
+            matched_env = matched_species.get("default_environment", "savannah")
+
+        if not matched_action:
+            matched_action = "idle"
+        elif matched_species and matched_action not in matched_species.get("available_animations", []):
+            # Fallback to species' primary action if unsupported
+            matched_action = matched_species.get("available_animations", ["idle"])[0]
+
+        return {
+            "species_id": matched_species["id"] if matched_species else None,
+            "species_name": species_name,
+            "species_category": species_category,
+            "species_action": matched_action,
+            "species_environment": matched_env or "savannah",
+            "species_rig": species_rig,
+            "style": matched_style,
+            "species_metadata": matched_species
+        }

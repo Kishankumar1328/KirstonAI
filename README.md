@@ -1,14 +1,13 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/KirstonAI-Agentic_AI_Coding_%26_Multimodal_RAG-blue?style=for-the-badge" alt="KirstonAI Banner" />
-  <br />
+  <h1>🚀 KirstonAI</h1>
+  <h3>Agentic AI Coding & Multimodal RAG Platform</h3>
   <p><strong>A production-grade autonomous agentic AI software engineering and multimodal RAG platform.</strong></p>
 
   <p>
-    <a href="https://github.com/Kishankumar1328/KirstonAI"><img src="https://img.shields.io/github/stars/Kishankumar1328/KirstonAI?style=flat-square&color=yellow" alt="Stars" /></a>
-    <a href="https://github.com/Kishankumar1328/KirstonAI/network/members"><img src="https://img.shields.io/github/forks/Kishankumar1328/KirstonAI?style=flat-square&color=orange" alt="Forks" /></a>
-    <img src="https://img.shields.io/badge/Python-3.11+-blue.svg?style=flat-square&logo=python&logoColor=white" alt="Python" />
-    <img src="https://img.shields.io/badge/React-18-blue.svg?style=flat-square&logo=react&logoColor=white" alt="React" />
-    <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI" />
+    <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status" />
+    <img src="https://img.shields.io/badge/Python-3.11+-blue.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/React-18-blue.svg?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+    <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
   </p>
 </div>
 
